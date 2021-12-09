@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite-api"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-tooltip"></script>
+    <style>
+      #chart {
+        width: 100%;
+        height: 80vh;
+        background-color: lightcoral;
+      }
+      span {
+          color: lightcoral;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vega lite responsive layout does not work well...</h1>
+    <p>
+      To make this work, drag the browser and vegalite chart will start
+      coming... the <span>coral color div</span> is the div that will contain the vegalite container... but as you can see it does not work...
+    </p>
+    <div id="chart"></div>
+
+    <script>
+      const simpleData = [
+        {
+          date: "2021-01-01",
+          category: "A",
+          value: 10,
+        },
+        {
+          date: "2021-01-01",
+          category: "B",
+          value: 100,
+        },
+        {
+          date: "2021-02-01",
+          category: "A",
+          value: 20,
+        },
+        {
+          date: "2021-02-01",
+          category: "B",
+          value: 5,
+        },
+      ];
+
+      vl.register(vega, vegaLite, {});
+
+      vl.markBar()
+        .data(simpleData)
+        .width("container")
+        .height("container")
+        .encode(
+          vl.x().fieldT("date").timeUnit("month"),
+          vl.y().count(),
+          vl.color().fieldN("category")
+        )
+        .render()
+        .then((chart) => {
+          document.getElementById("chart").appendChild(chart);
+        });
+    </script>
+  </body>
+</html>
